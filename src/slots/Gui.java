@@ -1,7 +1,6 @@
 package slots;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,14 +11,15 @@ public class Gui {
 
 	private Machine machine;
 	private JLabel left, center, right;
-	private final int LABEL_WIDTH = 200, LABEL_HEIGHT = 200;
+	private final int ICON_WIDTH = 200, ICON_HEIGHT = 200;
+	private final Dimension ICON_DIMESION = new Dimension(ICON_WIDTH, ICON_HEIGHT);
 	private ImageIcon l, c, r;
 
 	public Gui() {
-		setup();
+		init();
 	}
 
-	private void setup() {
+	private void init() {
 		machine = new Machine();
 		JFrame f = new JFrame();
 
@@ -27,7 +27,23 @@ public class Gui {
 		BorderLayout layout = new BorderLayout();
 		panel.setLayout(layout);
 
+		JPanel north = new JPanel();
+		BorderLayout layout0 = new BorderLayout();
+		north.setLayout(layout0);
+		
 		JLabel info = new JLabel("welcome");
+		info.setPreferredSize(new Dimension(ICON_WIDTH, 25));
+		
+		JLabel betPrompt = new JLabel("Enter Bet Here -->");
+		betPrompt.setPreferredSize(new Dimension(ICON_WIDTH, 25));
+		
+		JTextField betInput = new JTextField();
+		betInput.setPreferredSize(new Dimension(ICON_WIDTH, 25));
+		
+		north.add(info, BorderLayout.WEST);
+		north.add(betPrompt, BorderLayout.CENTER);
+		north.add(betInput, BorderLayout.EAST);
+		
 
 		JButton play = new JButton("PLAY!");
 		play.addActionListener(new ActionListener() {
@@ -35,28 +51,44 @@ public class Gui {
 			int score = 0;
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				plays++;
-				info.setText("played:" + plays + " times \t score:" + score);
-				score = machine.play(100);
+				String betAmt = betInput.getText();
+				int bet = -1;
+				try {
+				bet = Integer.parseInt(betAmt);
+				}
+				catch(Exception exception) {
+					exception.printStackTrace();
+					info.setText("enter a valid bet");
+					return;
+				}
+				if (bet < 0) {
+					info.setText("enter a valid bet");
+					return;
+				}
+			
+				++plays;
+				score = machine.play(bet);
+				info.setText("Current bet: "+betAmt+" score: "+score);
+				
 				updateImages();
 			}
 		});
 
 		left = new JLabel("", JLabel.CENTER);
-		left.setPreferredSize(new Dimension(LABEL_WIDTH, LABEL_HEIGHT));
+		left.setPreferredSize(ICON_DIMESION);
 		
 		center = new JLabel("", JLabel.CENTER);
-		center.setPreferredSize(new Dimension(LABEL_WIDTH, LABEL_HEIGHT));
+		center.setPreferredSize(ICON_DIMESION);
 		
 		right = new JLabel("", JLabel.CENTER);
-		right.setPreferredSize(new Dimension(LABEL_WIDTH, LABEL_HEIGHT));
+		right.setPreferredSize(ICON_DIMESION);
 
 		panel.add(left, BorderLayout.WEST);
 		panel.add(center, BorderLayout.CENTER);
 		panel.add(right, BorderLayout.EAST);
 
 		panel.add(play, BorderLayout.SOUTH);
-		panel.add(info, BorderLayout.NORTH);
+		panel.add(north, BorderLayout.NORTH);
 
 		f.setSize(600,350);
 		f.add(panel);

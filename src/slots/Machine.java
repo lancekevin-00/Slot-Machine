@@ -37,7 +37,7 @@ public class Machine {
 	}
 	
 	private void Play() {
-		int[] results = new int[reels.length];
+		results = new int[reels.length];
 		pathArr = new String[reels.length];
 		for(int i = 0; i < reels.length; ++i) {
 			Icon temp = reels[i].getIcon();
@@ -48,6 +48,16 @@ public class Machine {
 	}
 	
 	private int analyze(int[] results) {
+		if(results == null || results.length != 3)
+			return 0;
+		if(results[0] == results[1] && results[0] == results[2])
+			return 3;
+		if(results[0] == results[1])
+			return 2;
+		if(results[0] == results[2])
+			return 2;
+		if(results[1] == results[2])
+			return 2;
 		return 0;
 	}
 	
