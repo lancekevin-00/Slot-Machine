@@ -1,6 +1,7 @@
 package slots;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,24 +27,26 @@ public class Gui {
 		JPanel panel = new JPanel();
 		BorderLayout layout = new BorderLayout();
 		panel.setLayout(layout);
+		panel.setBackground(Color.white);
 
 		JPanel north = new JPanel();
 		BorderLayout layout0 = new BorderLayout();
 		north.setLayout(layout0);
-		
+		north.setBackground(Color.white);
+
 		JLabel info = new JLabel("welcome");
 		info.setPreferredSize(new Dimension(ICON_WIDTH, 25));
-		
+
 		JLabel betPrompt = new JLabel("Enter Bet Here -->");
 		betPrompt.setPreferredSize(new Dimension(ICON_WIDTH, 25));
-		
+
 		JTextField betInput = new JTextField();
 		betInput.setPreferredSize(new Dimension(ICON_WIDTH, 25));
-		
+
 		north.add(info, BorderLayout.WEST);
 		north.add(betPrompt, BorderLayout.CENTER);
 		north.add(betInput, BorderLayout.EAST);
-		
+
 
 		JButton play = new JButton("PLAY!");
 		play.addActionListener(new ActionListener() {
@@ -65,21 +68,21 @@ public class Gui {
 					info.setText("enter a valid bet");
 					return;
 				}
-			
+
 				++plays;
 				score = machine.play(bet);
 				info.setText("Current bet: "+betAmt+" score: "+score);
-				
+
 				updateImages();
 			}
 		});
 
 		left = new JLabel("", JLabel.CENTER);
 		left.setPreferredSize(ICON_DIMESION);
-		
+
 		center = new JLabel("", JLabel.CENTER);
 		center.setPreferredSize(ICON_DIMESION);
-		
+
 		right = new JLabel("", JLabel.CENTER);
 		right.setPreferredSize(ICON_DIMESION);
 
