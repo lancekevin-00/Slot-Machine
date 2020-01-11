@@ -16,13 +16,13 @@ public class Machine {
 		pathArr = null;
 		
 		//these are the icons on each reel of he machine
-		Icon lemon = new Icon("lemon", 1, "lemon.png");
-		Icon pound = new Icon("pound", 2, "pound.png");
-		Icon seven = new Icon("seven", 3, "seven.png");
-		Icon cherry = new Icon("cherry", 4, "cherry.png");
-		Icon bell = new Icon("bell", 5, "bell.png");
-		Icon bar = new Icon("bar", 6, "bar.png");
-		Icon diamond = new Icon("diamond", 7, "diamond.png");
+		Icon lemon = new Icon("lemon", 1, "icons/lemon.png");
+		Icon pound = new Icon("pound", 2, "icons/pound.png");
+		Icon seven = new Icon("seven", 3, "icons/seven.png");
+		Icon cherry = new Icon("cherry", 4, "icons/cherry.png");
+		Icon bell = new Icon("bell", 5, "icons/bell.png");
+		Icon bar = new Icon("bar", 6, "icons/bar.png");
+		Icon diamond = new Icon("diamond", 7, "icons/diamond.png");
 		
 		//putting the icons in the reels
 		reels = new Reel[NUM_OF_REELS];
