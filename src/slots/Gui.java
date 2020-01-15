@@ -15,6 +15,9 @@ public class Gui {
 	private final int ICON_WIDTH = 200, ICON_HEIGHT = 200;
 	private final Dimension ICON_DIMESION = new Dimension(ICON_WIDTH, ICON_HEIGHT);
 	private ImageIcon l, c, r;
+	private final String SPIN = "reel.gif";
+	private final String WON = "won.png";
+	
 
 	public Gui() {
 		init();
@@ -51,7 +54,7 @@ public class Gui {
 		JButton play = new JButton("PLAY!");
 		play.addActionListener(new ActionListener() {
 			int plays = 0;
-			int score = 0;
+			boolean won;
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String betAmt = betInput.getText();
@@ -70,8 +73,16 @@ public class Gui {
 				}
 
 				++plays;
-				score = machine.play(bet);
-				info.setText("Current bet: "+betAmt+" score: "+score);
+				won = machine.play(bet);
+				System.out.println(won);
+				String results = "Current bet: "+betAmt;
+				if(won)
+					results = "congratulations you won!";
+				else
+					results = "better luck next time";
+				
+				System.out.println(results+"\n -----------------");
+				info.setText(results);
 
 				updateImages();
 			}
@@ -85,6 +96,8 @@ public class Gui {
 
 		right = new JLabel("", JLabel.CENTER);
 		right.setPreferredSize(ICON_DIMESION);
+		
+		displaySpin();
 
 		panel.add(left, BorderLayout.WEST);
 		panel.add(center, BorderLayout.CENTER);
@@ -111,6 +124,20 @@ public class Gui {
 			System.out.println(e.getStackTrace());
 		}
 
+		left.setIcon(l);
+		center.setIcon(c);
+		right.setIcon(r);
+	}
+	
+	private void displaySpin() {
+		try {
+			l = new ImageIcon(SPIN);
+			c = new ImageIcon(SPIN);
+			r = new ImageIcon(SPIN);
+		}
+		catch(Exception e) {
+			System.out.println(e.getStackTrace());
+		}
 		left.setIcon(l);
 		center.setIcon(c);
 		right.setIcon(r);

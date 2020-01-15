@@ -31,9 +31,11 @@ public class Machine {
 		}
 	}
 
-	public int play(int betAmt) {
+	public boolean play(int betAmt) {
 		Play();
-		return analyze(results);
+		if(analyze(results) == 3)
+			return true;
+		return false;
 	}
 	
 	private void Play() {
